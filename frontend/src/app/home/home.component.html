@@ -1,0 +1,516 @@
+<!-- Loading starts -->
+<div id="loading-wrapper" *ngIf="isLodaing">
+  <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
+</div>
+
+<!-- Loading ends -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Dashboard
+          </h1>
+        </div><!-- /.col -->
+        <!-- <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item active"><a href="#">Home</a></li>
+          </ol>
+        </div> -->
+        <!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+
+            <!-- Running Buses -->
+            <div class="col-md-6 col-sm-12">
+              <div class="stat-card status-running" data-toggle="modal" data-target="#runningBus">
+                <div class="stat-icon">
+                  <i class="fas fa-bus"></i>
+                </div>
+                <div class="stat-info">
+                  <p class="stat-title">Running Today</p>
+                  <h3 class="stat-value">{{ runningBus }}</h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Idle Buses -->
+            <div class="col-md-6 col-sm-12">
+              <div class="stat-card" data-toggle="modal" data-target="#idleBus">
+                <div class="stat-icon bg-idle status-idle">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                  <p class="stat-title">Idle Today</p>
+                  <h3 class="stat-value">{{ idleBusCount }}</h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Finished Buses -->
+            <div class="col-md-6 col-sm-12">
+              <div class="stat-card status-finished" data-toggle="modal" data-target="#finishedBus">
+                <div class="stat-icon bg-finished">
+                  <i class="fas fa-flag-checkered"></i>
+                </div>
+                <div class="stat-info">
+                  <p class="stat-title">Finished Today</p>
+                  <h3 class="stat-value">{{ finishedBus }}</h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Still Not Started -->
+            <div class="col-md-6 col-sm-12">
+              <div class="stat-card status-still" data-toggle="modal" data-target="#stillBus">
+                <div class="stat-icon bg-still">
+                  <i class="fas fa-tools"></i>
+                </div>
+                <div class="stat-info">
+                  <p class="stat-title">Breakdown</p>
+                  <h3 class="stat-value">{{ stillBus }}</h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Todays Earning -->
+            <div class="col-md-6 col-sm-12">
+              <div class="stat-card earnings today">
+                <div class="stat-icon">
+                  <i class="fas fa-rupee-sign"></i>
+                </div>
+                <div class="stat-info">
+                  <p class="stat-title">Today's Earnings</p>
+                  <h3 class="stat-value">₹ {{ todayEarning || '-' }}*</h3>
+                  <small class="stat-sub">Live collection</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="stat-card earnings yesterday">
+                <div class="stat-icon">
+                  <i class="fas fa-calendar-day"></i>
+                </div>
+                <div class="stat-info">
+                  <p class="stat-title">Yesterday's Earnings</p>
+                  <h3 class="stat-value">₹ {{ yesterdayEarning || '-' }}</h3>
+                  <small class="stat-sub">Completed day</small>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-6 col-12">
+          <div class="chart-card bg-white rounded p-3">
+            <h5 class="chart-title mb-3">Today's Transport Statistics</h5>
+            <div class="chart-container">
+              <canvas id="transportPieChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <br><br>
+
+      <div class="row">
+        <!-- Total Bus -->
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+          <div class="stat-card">
+            <div class="stat-icon bg-bus">
+              <i class="fas fa-bus"></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-title">Total Vehicles</p>
+              <h3 class="stat-value">{{ totalBus }}</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bus Driver -->
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+          <div class="stat-card">
+            <div class="stat-icon bg-driver">
+              <i class="fas fa-id-badge"></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-title">Total Drivers</p>
+              <h3 class="stat-value">{{ totalDriver }}</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bus Conductor -->
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+          <div class="stat-card">
+            <div class="stat-icon bg-conductor">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-title">Conductors</p>
+              <h3 class="stat-value">{{ totalConductor }}</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Routes -->
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+          <div class="stat-card">
+            <div class="stat-icon bg-route">
+              <i class="fas fa-route"></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-title">Routes</p>
+              <h3 class="stat-value">{{ totalRoute }}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-12 col-sm-12">
+          <div class="chart-card bg-white rounded p-1">
+            <h5 class="chart-title">Overall Transport Statistics</h5>
+            <canvas id="transportBarChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Running Vehicles Modal -->
+  <div class="modal fade" id="runningBus" data-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Operating Vehicles</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Download Report Button -->
+          <div class="d-flex justify-content-end mb-3">
+            <button type="button" class="btn btn-success" (click)="downloadRunningBusReport()">
+              <i class="fas fa-download"></i> Download Report
+            </button>
+          </div>
+
+          <!-- Table with Responsive Wrapper -->
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Vehicle No.</th>
+                  <th>Route No</th>
+                  <th>Driver ID</th>
+                  <th>Conductor ID</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let bus of runningVehicle; let i = index">
+                  <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                  <td>{{ bus?.bus?.busNo }}</td>
+                  <td>{{ bus.routeNo }}</td>
+                  <td>{{ bus?.driver?.driver_id }}</td>
+                  <td>{{ bus?.conductor?.conductor_id }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Section -->
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+              <span class="text-muted">
+                Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
+                {{ Math.min(currentPage * itemsPerPage, totalItems) }} of {{ totalItems }} entries
+              </span>
+            </div>
+            <nav aria-label="Page navigation">
+              <ul class="pagination mb-0">
+                <!-- Previous Button -->
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+
+                <!-- Page Numbers -->
+                <li class="page-item" *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage">
+                  <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+                </li>
+
+                <!-- Next Button -->
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Idle Vehicles Modal -->
+  <div class="modal fade" id="idleBus" data-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Idle Vehicle</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Download Report Button -->
+          <div class="d-flex justify-content-end mb-3">
+            <button type="button" class="btn btn-success" (click)="downloadIdleBusReport()">
+              <i class="fas fa-download"></i> Download Report
+            </button>
+          </div>
+
+          <!-- Table with Responsive Wrapper -->
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Vehicle No.</th>
+                  <th>Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let bus of idleBusData; let i = index">
+                  <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                  <td>{{ bus.busNo }}</td>
+                  <td>{{ bus.remarks }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Section -->
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+              <span class="text-muted">
+                Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
+                {{ Math.min(currentPage * itemsPerPage, totalItems) }} of {{ totalItems }} entries
+              </span>
+            </div>
+            <nav aria-label="Page navigation">
+              <ul class="pagination mb-0">
+                <!-- Previous Button -->
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+
+                <!-- Page Numbers -->
+                <li class="page-item" *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage">
+                  <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+                </li>
+
+                <!-- Next Button -->
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Finished Vehicles Modal -->
+  <div class="modal fade" id="finishedBus" data-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Trips Completed Vehicle</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Download Report Button -->
+          <div class="d-flex justify-content-end mb-3">
+            <button type="button" class="btn btn-success" (click)="downloadFinishedBusReport()">
+              <i class="fas fa-download"></i> Download Report
+            </button>
+          </div>
+
+          <!-- Table with Responsive Wrapper -->
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Vehicle No.</th>
+                  <th>Route No.</th>
+                  <th>Driver ID</th>
+                  <th>Conductor ID</th>
+                  <th>Earnings</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let bus of finishedBusData; let i = index">
+                  <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                  <td>{{ bus?.bus?.busNo }}</td>
+                  <td>{{ bus?.route?.routeNo }}</td>
+                  <td>{{ bus?.driver?.driver_id }}</td>
+                  <td>{{ bus?.conductor?.conductor_id }}</td>
+                  <td>{{ bus?.netAmountDeposited }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Section -->
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+              <span class="text-muted">
+                Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
+                {{ Math.min(currentPage * itemsPerPage, totalItems) }} of {{ totalItems }} entries
+              </span>
+            </div>
+            <nav aria-label="Page navigation">
+              <ul class="pagination mb-0">
+                <!-- Previous Button -->
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+
+                <!-- Page Numbers -->
+                <li class="page-item" *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage">
+                  <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+                </li>
+
+                <!-- Next Button -->
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breakdown Vehicles Modal -->
+  <div class="modal fade" id="stillBus" data-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Breakdown Vehicle</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Download Report Button -->
+          <div class="d-flex justify-content-end mb-3">
+            <button type="button" class="btn btn-success" (click)="downloadBreakdownBusReport()">
+              <i class="fas fa-download"></i> Download Report
+            </button>
+          </div>
+
+          <!-- Table with Responsive Wrapper -->
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Vehicle No.</th>
+                  <th>Route No.</th>
+                  <th>Driver ID</th>
+                  <th>Conductor ID</th>
+                  <th>Trip Completed</th>
+                  <th>Km Driven</th>
+                  <th>Breakdown Place</th>
+                  <th>Breakdown Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let bus of stillBusData; let i = index">
+                  <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                  <td>{{ bus?.bus?.busNo }}</td>
+                  <td>{{ bus.routeNo }}</td>
+                  <td>{{ bus?.driver?.driver_id }}</td>
+                  <td>{{ bus?.conductor?.conductor_id }}</td>
+                  <td>{{ bus.noOfTrip }}</td>
+                  <td>{{ bus.totalOperated }}</td>
+                  <td>{{ bus.placeOfBreakdown }}</td>
+                  <td>{{ bus.stopTime }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Section -->
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+              <span class="text-muted">
+                Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
+                {{ Math.min(currentPage * itemsPerPage, totalItems) }} of {{ totalItems }} entries
+              </span>
+            </div>
+            <nav aria-label="Page navigation">
+              <ul class="pagination mb-0">
+                <!-- Previous Button -->
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+
+                <!-- Page Numbers -->
+                <li class="page-item" *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage">
+                  <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+                </li>
+
+                <!-- Next Button -->
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

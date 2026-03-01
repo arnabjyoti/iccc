@@ -1,0 +1,67 @@
+<div class="container-fluid pt-5 bg-image">
+    <div class="row pt-5">
+        <div class="col-md-12 upr-padding"></div>
+        <div class="col-md-8 text-center">
+            <!-- <img src="../../assets/image/login/astc.png" class="img-fluid pt-3" alt="astc">
+            <br><br>
+            <h1 style="color: red;">ASTC operated for efficient operation of 100 new ev buses under Pme buses sewa</h1>
+            <br><div style="color:yellow"><b>Design and operated by SkaplinkTechnologies Pvt. Ltd.</b></div> -->
+        </div>
+        <div class="col-md-3 border pl-5 py-5 form-bg shadow-lg rounded" style="background-color: #cffad1 ;">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>Login</h1>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <input type="email" class="form-control" [ngClass]="showVerify ? 'is-valid' : ''" placeholder="Email address" id=" validationServer01" [(ngModel)]="inputData.email">
+                    <!-- <div class="valid-feedback" *ngIf="showVerify">
+                        Verified!
+                      </div> -->
+                </div>
+                <div class="form-group col-md-12 pt-2" *ngIf="!showOTPInput">
+                    <button class="btn btn-success btn-block" (click)="sendOtp()"  [disabled]="isRegister" placeholder="OTP">Send OTP</button>
+                </div>
+                
+                <!-- <div class="form-group col-md-4 text-success" *ngIf="showVerify">
+                    <i class="fa-solid fa-check"></i>Varified
+                </div> -->
+            </div>
+            <div class="form-row" *ngIf="showOTPInput && !showVerify">
+                <!-- <div class="form-group col-md-12">
+                    <input type="number" [(ngModel)]="OTP.otp1" class="form-control" maxlength="1" />
+                </div> -->
+                <div class="form-row text-center py-3 px-1">
+                    <div class="form-group col-2">
+                      <input type="text" class="form-control otp-input" [(ngModel)]="OTP.otp11" maxlength="1" #otp1 (input)="focusNext(otp2)" />
+                    </div>
+                    <div class="form-group col-2">
+                      <input type="text" class="form-control otp-input" [(ngModel)]="OTP.otp22" maxlength="1" #otp2 (input)="focusNext(otp3)" />
+                    </div>
+                    <div class="form-group col-2">
+                      <input type="text" class="form-control otp-input" [(ngModel)]="OTP.otp33" maxlength="1" #otp3 (input)="focusNext(otp4)" />
+                    </div>
+                    <div class="form-group col-2">
+                      <input type="text" class="form-control otp-input" [(ngModel)]="OTP.otp44" maxlength="1" #otp4 (input)="focusNext(otp5)" />
+                    </div>
+                    <div class="form-group col-2">
+                      <input type="text" class="form-control otp-input" [(ngModel)]="OTP.otp55" maxlength="1" #otp5 (input)="focusNext(otp6)" />
+                    </div>
+                    <div class="form-group col-2">
+                      <input type="text" class="form-control otp-input" [(ngModel)]="OTP.otp66" maxlength="1" #otp6 />
+                    </div>
+                  </div>
+                <div class="form-group col-md-6">
+                    <button (click)="verifyOtpData()" *ngIf="showOTPInput" class="btn btn-block btn-danger" [disabled]="isRegister">Verify OTP</button>
+                </div>
+                <div class="form-group col-md-6">
+                    <button (click)="sendOtp()" *ngIf="showOTPInput" class="btn btn-block btn-warning" [disabled]="isRegister">Resend OTP</button>
+                </div>
+            </div>
+            <!-- <div class="form-check pt-2 p-0">
+                <label class="form-check-label" for="exampleCheck1">Don't have an account? <a href="/register">Sign Up</a></label>
+              </div> -->
+        </div>
+    </div>
+</div>

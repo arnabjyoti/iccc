@@ -1,0 +1,41 @@
+.bg-image{
+    background-image: url("../../assets/image/login/astc-ev2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 900px; 
+}
+.bg-style {
+    background-color: #f0f2f5;
+}
+.upr-padding{
+    padding-bottom: 62px;
+    padding-top: 62px;
+}
+.form-bg {
+    /* background: -webkit-linear-gradient(#8CA6DB, #B993D6);
+    background: linear-gradient(#8CA6DB, #B993D6); */
+    /* opacity: 0.85; */
+    filter: alpha(opacity=85);
+    background-size: cover;
+    background-position: center;
+}
+
+.form-bg a {
+    color: #ff0000;
+}
+.form-bg a:hover {
+    color: #fff200;
+    text-decoration: none;
+}
+
+/* Style the OTP input fields */
+.otp-input {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  
+  /* Increase the space between OTP input fields */
+  .form-group {
+    margin-bottom: 0;
+  }

@@ -1,0 +1,10 @@
+<app-tovnav *ngIf="isLoggedIn && showTopNav"></app-tovnav>
+<!-- Screen overlay start -->
+
+<div [ngClass]="isLoggedIn ? 'container-fluid' : ''">
+    <!-- <div [ngClass]="isLoggedIn ? '' : ''"> -->
+
+    <router-outlet></router-outlet>
+    <app-footer *ngIf="isLoggedIn && showTopNav"></app-footer>
+</div>
+

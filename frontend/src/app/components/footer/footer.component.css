@@ -1,0 +1,22 @@
+.main-footer {
+    background-color: rgb(238, 236, 239);
+    color: rgb(86, 81, 81);
+}
+
+.version-span {
+    display: flex;
+    gap: 0.2rem;
+    color: rgb(181, 51, 51);
+}
+
+.version-text {
+    font-weight: 500;
+}
+
+.bottom-text {
+    gap: 0.3rem;
+}
+
+.last-bottom-text {
+    font-size: 0.85rem;
+}
