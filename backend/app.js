@@ -1,3 +1,6 @@
+const axios = require("axios");
+const { Server } = require("socket.io");
+
 const createError = require('http-errors');
 const express = require('express');
 var cors = require('cors');
@@ -61,8 +64,51 @@ var options = {
 app.use(cors());
 require('./routes')(app);
 const port = parseInt(process.env.PORT, 10) || 8800;
-app.set('port', port);
-const server = https.createServer(options, app);
-server.listen(port, '0.0.0.0', () => console.log(`Server listening on ${port}`));
+// app.set('port', port);
+// const server = https.createServer(options, app);
+// server.listen(port, '0.0.0.0', () => console.log(`Server listening on ${port}`));
 
+const server = https.createServer(options, app);
+
+// ⭐ SOCKET.IO
+const io = new Server(server, {
+  cors: { origin: "*" }
+});
+
+
+io.on("connection", (socket) => {
+  console.log("Client connected:", socket.id);
+
+  const interval = setInterval(async () => {
+
+    try {
+
+      // ⭐ CALL YOUR GPS API
+      const response = await axios.get(
+        "http://htp2.hitecpoint.in/api/Pgm/live/?apiKey=995FC323-CCEA-46F9-843A-819AA089C479"
+      );
+
+      const vehicles = response.data;
+
+      // Send to frontend
+      socket.emit("vehicleLocation", vehicles);
+
+    } catch (error) {
+      console.error("API Error:", error.message);
+    }
+
+  }, 2000); // every 2 seconds
+
+
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+    clearInterval(interval);
+  });
+
+});
+
+
+server.listen(port, '0.0.0.0', () =>
+  console.log(`Server listening on ${port}`)
+);
 module.exports = app;

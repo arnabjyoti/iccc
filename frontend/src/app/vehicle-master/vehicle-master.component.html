@@ -1,0 +1,65 @@
+<div class="content-wrapper">
+  <section class="content">
+    <div class="container-fluid">
+
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Vehicle Live Status</h5>
+    </div>
+
+    <div class="card-body table-responsive">
+
+      <table class="table table-bordered table-hover table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>Vehicle No</th>
+            <th>Box ID</th>
+            <th>Speed</th>
+            <th>Status</th>
+            <th>Last Update</th>
+            <th>Location</th>
+            <th>Distance</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let v of vehicles; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ v.VehName }}</td>
+            <td>{{ v.BoxId }}</td>
+            <td>{{ v.Speed }} km/h</td>
+
+            <td>
+              <span 
+                class="badge"
+                [ngClass]="{
+                  'badge-success': v.VehicleStatus === 'Moving',
+                  'badge-danger': v.VehicleStatus === 'Stopped',
+                  'badge-secondary': v.VehicleStatus === 'Unreachable'
+                }">
+                {{ v.VehicleStatus }}
+              </span>
+            </td>
+
+            <td>{{ formatDate(v.Lastdate) }}</td>
+            <td>{{ v.Location }}</td>
+            <td>{{ v.Distance }} km</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="vehicles.length === 0 && !loading" class="text-center">
+        No data available
+      </div>
+
+      <div *ngIf="loading" class="text-center">
+        Loading...
+      </div>
+
+    </div>
+
+</div>
+    </div>
+  </section>
+</div>

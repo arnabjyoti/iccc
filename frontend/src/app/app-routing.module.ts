@@ -3,6 +3,7 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AuthGuardService as AuthGuard } from "./auth/auth-gaurd.service";
 import { LoginComponent } from './login/login.component';
+import { VehicleMasterComponent } from './vehicle-master/vehicle-master.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,12 @@ const routes: Routes = [
   {
     path: "home",
     component: HomeComponent,
+    data: { showTopNav: true },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "vehicle-master",
+    component: VehicleMasterComponent,
     data: { showTopNav: true },
     canActivate: [AuthGuard]
   },

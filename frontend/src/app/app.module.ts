@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FooterComponent } from './components/footer/footer.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { VehicleMasterComponent } from './vehicle-master/vehicle-master.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     HomeComponent,
     LoginComponent,
     TovnavComponent,
-    FooterComponent
+    FooterComponent,
+    VehicleMasterComponent
   ],
   imports: [
     FormsModule,

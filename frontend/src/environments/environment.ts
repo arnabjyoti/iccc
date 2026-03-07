@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   test:true,
-  BASE_URL: 'https://backend.astcpmebusseva.com'
-  // BASE_URL: 'http://localhost:8800'
+  // BASE_URL: 'https://backend.astcpmebusseva.com'
+  BASE_URL: 'http://localhost:8800'
 };
 
 /*

@@ -159,7 +159,7 @@ export class TovnavComponent implements OnInit {
         {
           label: 'Vehicle Master',
           icon: 'fas fa-bus',
-          routerLink: '/buses',
+          routerLink: '/vehicle-master',
         },
         {
           label: 'Vehicle Routes',
