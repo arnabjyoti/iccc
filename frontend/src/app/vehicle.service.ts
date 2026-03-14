@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class VehicleService {
 
   constructor() {
 
-    this.socket = io('http://localhost:8800', {
+    this.socket = io(`${environment.BASE_URL}`, {
       transports: ['websocket'],
       autoConnect: true
     });

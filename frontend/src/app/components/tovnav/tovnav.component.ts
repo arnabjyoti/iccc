@@ -149,7 +149,7 @@ export class TovnavComponent implements OnInit {
     console.log('role : ', user.role);
 
     // for operator 
-    if (user.role === 'operator') {
+    // if (user.role === 'operator') {
       this.menuItems = [
         {
           label: 'Home',
@@ -231,7 +231,7 @@ export class TovnavComponent implements OnInit {
           routerLink: '/breakdown-vehicles',
         }
       ];
-    }
+    // }
 
     // for admin 
     if (user.role === 'cashier') {

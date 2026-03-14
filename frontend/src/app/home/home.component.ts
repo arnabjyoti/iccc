@@ -13,23 +13,29 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   map: any;
   markers: any = {};
 
+  loading: boolean = true;
+
   constructor(private vehicleService: VehicleService) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit() {
 
-    // 🗺️ Initialize map (Guwahati)
     this.map = L.map('map').setView([26.1445, 91.7362], 12);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap'
     }).addTo(this.map);
 
-    // 📡 Real-time listener from backend
     this.vehicleService.onVehicleUpdate((data) => {
+
+      if (this.loading && data.length > 0) {
+        this.loading = false;   // ⭐ hide loader when first data comes
+      }
+
       this.updateVehicles(data);
     });
+
   }
 
   // 🚀 MAIN UPDATE FUNCTION

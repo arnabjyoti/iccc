@@ -63,7 +63,7 @@ var options = {
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 app.use(cors());
 require('./routes')(app);
-const port = parseInt(process.env.PORT, 10) || 8800;
+const port = parseInt(process.env.PORT, 10) || 8100;
 // app.set('port', port);
 // const server = https.createServer(options, app);
 // server.listen(port, '0.0.0.0', () => console.log(`Server listening on ${port}`));

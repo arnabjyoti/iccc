@@ -11,7 +11,7 @@ module.exports = (app) => {
 	);
 
 	app.post('/api/authenticate', AuthController.authenticate);
-
+	app.post('/api/sendOtp', sendMail.sendOtp);
 	app.post('/api/verifyEmail', AuthController.verifyEmail);
 
 

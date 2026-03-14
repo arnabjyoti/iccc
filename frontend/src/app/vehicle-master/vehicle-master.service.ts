@@ -7,17 +7,17 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class VehicleService {
+export class VehicleMasterService {
 
   constructor(private http: HttpClient) {}
 
   
   // Live GPS API
-  getVehicles(): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(
-      'http://htp2.hitecpoint.in/api/Pgm/live/?apiKey=995FC323-CCEA-46F9-843A-819AA089C479'
-    );
-  }
+  // getVehicles(): Observable<Vehicle[]> {
+  //   return this.http.get<Vehicle[]>(
+  //     'http://htp2.hitecpoint.in/api/Pgm/live/?apiKey=995FC323-CCEA-46F9-843A-819AA089C479'
+  //   );
+  // }
 
   // Database vehicles
   getVehicleMaster(): Observable<any[]> {

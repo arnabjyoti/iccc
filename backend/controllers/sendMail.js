@@ -39,7 +39,7 @@ var mailOptions = {
     html: `<div style="font-family: Arial, sans-serif; background-color: #f4f7ff; padding: 40px 0;">
     <div style="max-width: 600px; margin: auto; background: #ffffff; border-radius: 10px; padding: 40px; text-align: center; box-shadow: 0px 4px 15px rgba(0,0,0,0.08);">
       
-      <h2 style="color: #4b57d4; margin-bottom: 10px;">ASTC PMe Bus Seva</h2>
+      <h2 style="color: #4b57d4; margin-bottom: 10px;">GMC Integrated command and control center (ICCC)</h2>
       <h3 style="color: #4b57d4; font-size: 22px; margin-top: 0;">One Time Password</h3>
 
       <p style="font-size: 14px; color: #555;">
@@ -60,7 +60,7 @@ var mailOptions = {
     </div>
 
     <p style="text-align: center; font-size: 12px; color: #9a9a9a; margin-top: 20px;">
-      © ${new Date().getFullYear()} ASTC PMe Bus Seva. All rights reserved.
+      © ${new Date().getFullYear()} GMC Integrated command and control center. All rights reserved.
     </p>
   </div>`, // html body
 }
