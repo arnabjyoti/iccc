@@ -1,0 +1,253 @@
+<!-- Loading starts -->
+<!-- <div id="loading-wrapper" *ngIf="isLodaing">
+  <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
+</div> -->
+
+<!-- Loading ends -->
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Vehicle Routes</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item active"><button class="btn btn-default" data-toggle="modal"
+                                data-target="#formModal">
+                                <i class="fas fa-plus"></i> New Route
+                            </button></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <section class="content card p-2">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <div>
+
+
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Depot</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                    <th>Via</th>
+                                    <th>Route No</th>
+                                    <th>Route Name</th>
+                                    <th>Distance</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let r of routes; let i=index">
+
+                                    <td>{{i+1}}</td>
+
+                                    <td>{{r.depot}}</td>
+
+                                    <td>{{r.start}}</td>
+
+                                    <td>{{r.end}}</td>
+
+                                    <td>{{r.via}}</td>
+
+                                    <td>{{r.routeNo}}</td>
+
+                                    <td>{{r.routeName}}</td>
+
+                                    <td>{{r.routeDistance}}</td>
+
+                                    <td>
+
+                                        <span class="badge badge-success" *ngIf="r.status=='Active'">
+                                            Active
+                                        </span>
+
+                                        <span class="badge badge-danger" *ngIf="r.status=='Inactive'">
+                                            Inactive
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <button class="btn btn-sm btn-warning" (click)="openEditModal(r)">
+
+                                            <i class="fas fa-edit"></i>
+
+                                        </button>
+
+                                        <button class="btn btn-sm btn-danger" (click)="deleteRoute(r.id)">
+
+                                            <i class="fas fa-trash"></i>
+
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade" id="formModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Route Details</h2>
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-6 pt-2">
+                                <label>Depot</label>
+                                <input class="form-control" [(ngModel)]="selectedRoute.depot">
+
+                                <datalist id="depotList">
+                                    <option></option>
+                                </datalist>
+
+                            </div>
+
+                            <div class="col-md-6 pt-2">
+                                <label>Start Point</label>
+                                <input class="form-control" [(ngModel)]="selectedRoute.start">
+
+                                <datalist id="startList">
+                                    <option></option>
+                                </datalist>
+
+                            </div>
+
+                            <div class="col-md-6 pt-2">
+                                <label>End Point</label>
+                                <input class="form-control" [(ngModel)]="selectedRoute.end">
+
+                                <datalist id="endList">
+                                    <option></option>
+                                </datalist>
+
+                            </div>
+
+                            <div class="col-md-6 pt-2">
+                                <label>Via</label>
+                                <input class="form-control" [(ngModel)]="selectedRoute.via">
+
+                                <datalist id="viaList">
+                                    <option></option>
+                                </datalist>
+
+                            </div>
+
+                            <div class="col-md-6 pt-2">
+                                <label>Route No</label>
+                                <input class="form-control" [(ngModel)]="selectedRoute.routeNo">
+
+                                <datalist id="routeNoList">
+                                    <option></option>
+                                </datalist>
+                            </div>
+
+                            <div class="col-md-6 pt-2">
+                                <label>Route Name</label>
+                                <input class="form-control" [(ngModel)]="selectedRoute.routeName">
+
+                                <datalist id="routeNameList">
+                                    <option></option>
+                                </datalist>
+                            </div>
+
+
+                            <div class="col-md-6 pt-2">
+                                <label>Route Distance (KM)</label>
+                                <input class="form-control" [(ngModel)]="selectedRoute.routeDistance">
+                            </div>
+
+                            <div class="col-md-6 pt-2">
+                                <label>Depot → Start Distance</label>
+                                <input class="form-control" [(ngModel)]="selectedRoute.depot_to_start_distance">
+                            </div>
+
+                            <div class="col-md-6 pt-2">
+                                <label>End → Depot Distance</label>
+                                <input class="form-control" [(ngModel)]="selectedRoute.end_to_depot_distance">
+                            </div>
+
+                            <div class="col-md-6 pt-2">
+                                <label>Status</label>
+                                <select class="form-control" [(ngModel)]="selectedRoute.status">
+
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <button *ngIf="!selectedRoute.id" class="btn btn-primary float-right" (click)="saveRoute()">
+
+                        Save
+
+                    </button>
+
+                    <button *ngIf="selectedRoute.id" class="btn btn-success float-right" (click)="updateRoute()">
+
+                        Update
+
+                    </button>
+
+                    <button class="btn btn-secondary float-right mr-2" data-dismiss="modal">
+
+                        Cancel
+
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Confirmation Message</h2>
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure ! You want to delete route <strong><i></i></strong> ?</h4>
+                    <button type="button" class="btn btn-primary float-sm-right" data-dismiss="modal">
+                        Yes
+                    </button>
+                    <button type="button" class="btn btn-default float-sm-right" data-dismiss="modal">
+                        No
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

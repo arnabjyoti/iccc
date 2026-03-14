@@ -1,0 +1,29 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class VehicleRoutesService {
+
+  api = "http://localhost:8800/api";
+
+  constructor(private http: HttpClient) {}
+
+  getVehicleRoutes() {
+    return this.http.get(this.api + "/getVehicleRoutes");
+  }
+
+  saveRoute(data:any) {
+    return this.http.post(this.api + "/saveRoute", data);
+  }
+
+  updateRoute(data:any) {
+    return this.http.post(this.api + "/updateRoute", data);
+  }
+
+  deleteRoute(data:any) {
+    return this.http.post(this.api + "/deleteRoute", data);
+  }
+
+}

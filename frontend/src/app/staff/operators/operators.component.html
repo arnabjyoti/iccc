@@ -1,0 +1,373 @@
+<div class="content-wrapper">
+
+    <!-- Content Header -->
+    <div class="content-header">
+        <div class="container-fluid">
+
+            <div class="row mb-2">
+
+                <div class="col-sm-6">
+                    <h1 class="m-0">Operator Details</h1>
+                </div>
+
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item active">
+
+                            <button class="btn btn-default btn-sm"
+                                data-toggle="modal"
+                                data-target="#operatorFormModal"
+                                (click)="openNewOperatorDialog()">
+
+                                <i class="fas fa-plus"></i> New Operator
+
+                            </button>
+
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <section class="content card p-2">
+
+        <div class="container-fluid">
+
+            <table class="table table-bordered">
+
+                <thead>
+                    <tr>
+                        <th>Sl No.</th>
+                        <th>Operator ID</th>
+                        <th>Operator Name</th>
+                        <th>Contact No</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr *ngFor="let data of operatorList; let i = index">
+
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ data.operator_id }}</td>
+                        <td>{{ data.operator_name }}</td>
+                        <td>{{ data.contact_no }}</td>
+
+                        <td>
+
+                            <button class="btn btn-default"
+                                data-toggle="modal"
+                                data-target="#viewOperatorModal"
+                                (click)="viewOperatorData(i)">
+                                <i class="fa fa-eye"></i>
+                            </button>
+
+                            <button class="btn btn-default"
+                                data-toggle="modal"
+                                data-target="#operatorFormModal"
+                                (click)="openEditOperatorDialog(data)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+
+                            <button class="btn btn-default"
+                                data-toggle="modal"
+                                data-target="#deleteOperatorModal"
+                                (click)="openConfirmationDialog(data)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- OPERATOR FORM MODAL -->
+
+    <div class="modal fade" id="operatorFormModal">
+
+        <div class="modal-dialog modal-md">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h2 class="modal-title">Operator Details</h2>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+
+                    <form #operatorForm="ngForm">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label>Operator ID *</label>
+                                <input type="text"
+                                    class="form-control"
+                                    [(ngModel)]="form1.operator_id"
+                                    name="operator_id"
+                                    required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Operator Name *</label>
+                                <input type="text"
+                                    class="form-control"
+                                    [(ngModel)]="form1.operator_name"
+                                    name="operator_name"
+                                    required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Contact No *</label>
+                                <input type="number"
+                                    class="form-control"
+                                    [(ngModel)]="form1.contact_no"
+                                    name="contact_no"
+                                    required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>AADHAAR *</label>
+                                <input type="number"
+                                    class="form-control"
+                                    [(ngModel)]="form1.aadhaar"
+                                    name="aadhaar">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>PAN *</label>
+                                <input type="text"
+                                    class="form-control"
+                                    [(ngModel)]="form1.pan"
+                                    name="pan">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Voter ID *</label>
+                                <input type="text"
+                                    class="form-control"
+                                    [(ngModel)]="form1.voter"
+                                    name="voter">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>License No *</label>
+                                <input type="text"
+                                    class="form-control"
+                                    [(ngModel)]="form1.license_no"
+                                    name="license_no">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Address *</label>
+                                <input type="text"
+                                    class="form-control"
+                                    [(ngModel)]="form1.address"
+                                    name="address">
+                            </div>
+
+                        </div>
+
+
+                        <div class="row pt-3">
+
+                            <div class="col-md-12">
+                                <label>Operator Photo</label>
+
+                                <input type="file"
+                                    class="form-control"
+                                    accept="image/*"
+                                    (change)="onPhotoChange($event)">
+                            </div>
+
+                            <div class="col-md-12" *ngIf="imagePreview">
+
+                                <label>Preview</label><br>
+
+                                <img [src]="imagePreview"
+                                    style="width:120px;height:120px;object-fit:cover;border:1px solid #ccc;padding:4px">
+
+                            </div>
+
+                        </div>
+
+
+                        <button *ngIf="!isEdit"
+                            type="button"
+                            class="btn btn-info float-right"
+                            [disabled]="operatorForm.invalid"
+                            (click)="saveData(operatorForm)"
+                            data-dismiss="modal">
+
+                            Save
+
+                        </button>
+
+                        <button *ngIf="isEdit"
+                            type="button"
+                            class="btn btn-info float-right"
+                            (click)="updateData()"
+                            data-dismiss="modal">
+
+                            Update
+
+                        </button>
+
+                        <button type="button"
+                            class="btn btn-default float-right mr-2"
+                            data-dismiss="modal">
+
+                            Cancel
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- VIEW MODAL -->
+
+    <div class="modal fade" id="viewOperatorModal">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Operator Details</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body" *ngIf="selectedData">
+
+                    <table class="table table-borderless">
+
+                        <tr>
+                            <th>Operator ID</th>
+                            <td>{{ selectedData.operator_id }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Contact</th>
+                            <td>{{ selectedData.contact_no }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Aadhaar</th>
+                            <td>{{ selectedData.aadhaar }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>PAN</th>
+                            <td>{{ selectedData.pan }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Voter</th>
+                            <td>{{ selectedData.voter }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>License</th>
+                            <td>{{ selectedData.license_no }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Address</th>
+                            <td>{{ selectedData.address }}</td>
+                        </tr>
+
+                    </table>
+
+                    <div class="text-center">
+
+                        <img [src]="endpoint + '/docs/' + selectedData.photo"
+                            class="img-thumbnail"
+                            style="width:150px;height:180px;object-fit:cover">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- DELETE MODAL -->
+
+    <div class="modal fade" id="deleteOperatorModal">
+
+        <div class="modal-dialog modal-sm">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h2 class="modal-title">Confirmation</h2>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+
+                    <h5>
+
+                        Are you sure you want to delete operator
+
+                        <strong>
+                            "{{toBeDeletedOperatorRecord.operator_name}}"
+                        </strong>
+
+                        ?
+
+                    </h5>
+
+                    <button class="btn btn-primary float-right"
+                        (click)="handleDeleteOperator()"
+                        data-dismiss="modal">
+
+                        Yes
+
+                    </button>
+
+                    <button class="btn btn-default float-right"
+                        data-dismiss="modal">
+
+                        No
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
