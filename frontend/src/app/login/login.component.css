@@ -1,9 +1,12 @@
 .bg-image{
-    background-image: url("../../assets/image/login/astc-ev2.jpg");
+    background-image: url("../../assets/image/login/gmc.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 900px; 
+    /* height: 900px;  */
+    /* width: 100%; */
+    /*height: 100vh;*/
+    height: 100vh;
 }
 .bg-style {
     background-color: #f0f2f5;
@@ -28,6 +31,21 @@
     color: #fff200;
     text-decoration: none;
 }
+
+.form-control {
+    background-color: #e2e2e2;
+    border: none;
+}
+.form-control:hover{
+    background-color: #ffffff;
+    transition-duration: 0.5s;
+}
+/* #ancorType{
+    color:#f0f2f5 !important;
+}
+#ancorType:hover{
+    color: #fff200 !important;
+} */
 
 /* Style the OTP input fields */
 .otp-input {
