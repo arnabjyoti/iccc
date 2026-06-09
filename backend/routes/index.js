@@ -1,6 +1,8 @@
-const { sendMail, driverController, operatorController, vehicleController, vehicleRoutesController } = require('../controllers');
+const { sendMail, driverController, operatorController, vehicleController, vehicleRoutesController, busController } = require('../controllers');
 
 const AuthController = require('../controllers').AuthController;
+
+const travelHistoryController = require('../controllers/travelHistoryController');
 
 //Api's
 module.exports = (app) => {
@@ -35,4 +37,13 @@ module.exports = (app) => {
 	app.post('/api/updateRoute', vehicleRoutesController.updateRoute);
 	app.post('/api/deleteRoute', vehicleRoutesController.deleteRoute);
 
+	app.get('/api/getBusList', busController.getBusList);
+	app.post('/api/getBusData', busController.getBusData);
+
+	app.post('/api/saveDailyUpdates', busController.saveDailyUpdates);
+	app.post('/api/updateDailyUpdates', busController.updateDailyUpdates);
+	app.post('/api/getOneTripDetails', busController.getOneTripDetails);
+
+
+	app.post("/api/travel-history", travelHistoryController.fetchTravelHistory);
 	};

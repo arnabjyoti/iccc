@@ -7,6 +7,8 @@ import { VehicleMasterComponent } from './vehicle-master/vehicle-master.componen
 import { VehicleRoutesComponent } from './vehicle-routes/vehicle-routes.component';
 import { OperatorsComponent } from './staff/operators/operators.component';
 import { DriversComponent } from './staff/drivers/drivers.component';
+import { DailyUpdateFormComponent } from './daily-update-form/daily-update-form.component';
+import { BusesComponent } from './buses/buses.component';
 
 const routes: Routes = [
   {
@@ -41,6 +43,18 @@ const routes: Routes = [
   {
     path: "operators",
     component: OperatorsComponent,
+    data: { showTopNav: true },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "daily-update",
+    component: DailyUpdateFormComponent,
+    data: { showTopNav: true },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "buses",
+    component: BusesComponent,
     data: { showTopNav: true },
     canActivate: [AuthGuard]
   },

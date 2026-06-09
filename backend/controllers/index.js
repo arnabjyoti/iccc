@@ -4,11 +4,15 @@ const driverController = require('./driverController');
 const operatorController = require('./operatorController');
 const vehicleController = require('./vehicleController');
 const vehicleRoutesController = require('./vehicleRoutesController');
+const busController = require('./busController');
+const travelHistoryController = require('./travelHistoryController');
 module.exports = {
 	AuthController,
 	sendMail,
 	driverController,
 	operatorController,
 	vehicleController,
-	vehicleRoutesController
+	vehicleRoutesController,
+	busController,
+	travelHistoryController
 };

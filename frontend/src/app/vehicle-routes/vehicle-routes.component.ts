@@ -65,8 +65,10 @@ export class VehicleRoutesComponent implements OnInit {
     .subscribe(()=>{
 
       alert("Route saved");
+      let ele: any = document.getElementById('modalClose');
+      ele.click();
 
-      $('#formModal').modal('hide');
+      // $('#formModal').modal('hide');
 
       this.getRoutes();
 
@@ -81,8 +83,10 @@ export class VehicleRoutesComponent implements OnInit {
     .subscribe(()=>{
 
       alert("Route updated");
+      let ele: any = document.getElementById('modalClose');
+      ele.click();
 
-      $('#formModal').modal('hide');
+      // $('#formModal').modal('hide');
 
       this.getRoutes();
 

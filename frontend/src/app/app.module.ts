@@ -19,6 +19,8 @@ import { VehicleMasterComponent } from './vehicle-master/vehicle-master.componen
 import { VehicleRoutesComponent } from './vehicle-routes/vehicle-routes.component';
 import { OperatorsComponent } from './staff/operators/operators.component';
 import { DriversComponent } from './staff/drivers/drivers.component';
+import { DailyUpdateFormComponent } from './daily-update-form/daily-update-form.component';
+import { BusesComponent } from './buses/buses.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { DriversComponent } from './staff/drivers/drivers.component';
     VehicleMasterComponent,
     VehicleRoutesComponent,
     OperatorsComponent,
-    DriversComponent
+    DriversComponent,
+    DailyUpdateFormComponent,
+    BusesComponent
   ],
   imports: [
     FormsModule,

@@ -162,6 +162,11 @@ export class TovnavComponent implements OnInit {
           routerLink: '/vehicle-master',
         },
         {
+          label: 'Vehicle logsheet',
+          icon: 'fab fa-slack',
+          routerLink: '/buses',
+        },
+        {
           label: 'Vehicle Routes',
           icon: 'fas fa-route',
           routerLink: '/vehicle-routes',
@@ -225,11 +230,11 @@ export class TovnavComponent implements OnInit {
         //   icon: 'fas fa-book',
         //   routerLink: '/bus-daily-updates',
         // },
-        {
-          label: 'Breakdown Vehicles',
-          icon: 'fas fa-tools',
-          routerLink: '/breakdown-vehicles',
-        }
+        // {
+        //   label: 'Breakdown Vehicles',
+        //   icon: 'fas fa-tools',
+        //   routerLink: '/breakdown-vehicles',
+        // }
       ];
     // }
 
