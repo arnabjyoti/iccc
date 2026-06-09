@@ -152,14 +152,14 @@ export class TovnavComponent implements OnInit {
     // if (user.role === 'operator') {
       this.menuItems = [
         {
-          label: 'Home',
-          icon: 'fas fa-home',
-          routerLink: '/home',
-        },
-        {
           label: 'Vehicle Master',
           icon: 'fas fa-bus',
           routerLink: '/vehicle-master',
+        },
+        {
+          label: 'Vehicle Tracking',
+          icon: 'fas fa-map-marked-alt',
+          routerLink: '/home',
         },
         {
           label: 'Vehicle logsheet',
