@@ -146,7 +146,7 @@ export class LoginComponent implements OnInit{
           //  this.router.navigate(['/home']);
           console.log("home");
           
-          window.location.href = "/home";
+          window.location.href = "/vehicle-master";
           // window.location.reload();
         }
       });
