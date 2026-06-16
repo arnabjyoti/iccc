@@ -31,7 +31,7 @@
                   <i class='bx bx-filter mr-1'></i> Filter
                 </button>
 
-                <button class="btn btn-primary btn-sm shadow-sm">
+                <button class="btn btn-primary btn-sm shadow-sm" (click)="generatePDF()">
                   <i class='bx bx-export mr-1'></i> Generate Report
                 </button>
 
@@ -193,7 +193,7 @@
 
 
               <div class="table-responsive">
-                <table class="table table-bordered table-hover table-sm">
+                <table class="table table-bordered table-hover table-sm" id="vehicleTable">
 
                   <thead class="thead-dark">
                     <tr>

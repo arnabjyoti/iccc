@@ -129,7 +129,7 @@
                   <!-- Actions -->
                     <td class="text-center action-cell">
 
-                    <div class="btn-group mb-2">
+                    <!-- <div class="btn-group mb-2">
                         <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#viewModal"
                           (click)="viewData(i)">
                           <i class="fa fa-eye"></i>
@@ -144,7 +144,7 @@
                           data-target="#deleteModal">
                           <i class="fas fa-trash text-danger"></i>
                         </button>
-                      </div>
+                      </div> -->
 
                     <!-- Trip actions -->
                       <!-- <div *ngIf="data.currentStatus === 'running'" class="mb-1">
@@ -197,7 +197,7 @@
                       <div class="form-group">
                         <div class="row">
                           <div class="col-md-6 pt-3">
-                            <label>Bus Name</label>
+                            <label>Vehicle Name</label>
                           <input type="text" class="form-control" [disabled]="form.isFixed === 'yes'"
                               [(ngModel)]="form.busName" name="busName" placeholder="Enter Bus Name" />
                           </div>

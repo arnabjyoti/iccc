@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { VehicleMasterService } from './vehicle-master.service';
 import { VehicleService } from '../vehicle.service';
 
+
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+
 declare var $: any;
 
 @Component({
@@ -368,6 +372,64 @@ formatDate(date:string){
 
   return new Date(date).toLocaleString();
 
+}
+
+
+
+
+generatePDF() {
+
+  const doc = new jsPDF('l', 'mm', 'a4');
+
+  const headers = [[
+    '#',
+    'Division',
+    'Vehicle No',
+    'Vehicle Type',
+    'Operator',
+    'Driver',
+    'Box ID',
+    'Speed',
+    'Status',
+    'Location',
+    'Last Update',
+    'Distance'
+  ]];
+
+  const rows = this.vehicles.map((item: any, index: number) => [
+    index + 1,
+    item.division,
+    item.VehName,
+    item.vehicle_type,
+    item.operator_name,
+    item.driver_name,
+    item.BoxId,
+    item.Speed,
+    item.VehicleStatus,
+    item.Location,
+    item.Lastdate,
+    item.Distance
+  ]);
+
+  doc.setFontSize(16);
+  doc.text('Vehicle Tracking Report', 14, 15);
+
+  autoTable(doc, {
+    head: headers,
+    body: rows,
+    startY: 25,
+    theme: 'grid',
+    styles: {
+      fontSize: 7,
+      overflow: 'linebreak'
+    },
+    columnStyles: {
+      9: { cellWidth: 60 }, // Location column
+      6: { cellWidth: 35 }  // Box ID column
+    }
+  });
+
+  doc.save(`Vehicle_Report_${new Date().getTime()}.pdf`);
 }
 
 }
