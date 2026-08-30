@@ -1,200 +1,164 @@
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
-
       <div class="card shadow">
         <div class="card-header bg-primary text-white">
           <h5 class="mb-0">Vehicle Live Status</h5>
         </div>
 
         <div class="card-body table-responsive">
-
-
           <div class="main-content container-fluid mt-4">
-
             <!-- Header -->
             <div class="d-flex justify-content-between align-items-end mb-4">
-
               <div>
                 <h4 class="font-weight-bold mb-1">Operations Summary</h4>
 
                 <p class="text-muted small mb-0">
-                  <i class='bx bx-calendar mr-1'></i>
-                  {{today}} | Guwahati Division
+                  <i class="bx bx-calendar mr-1"></i>
+                  {{ today }} | Guwahati Division
                 </p>
-
               </div>
 
               <div>
-
                 <button class="btn btn-light btn-sm border shadow-sm mr-2">
-                  <i class='bx bx-filter mr-1'></i> Filter
+                  <i class="bx bx-filter mr-1"></i> Filter
                 </button>
 
                 <button class="btn btn-primary btn-sm shadow-sm">
-                  <i class='bx bx-export mr-1'></i> Generate Report
+                  <i class="bx bx-export mr-1"></i> Generate Report
                 </button>
-
               </div>
-
             </div>
 
             <div class="row mb-4">
-
               <!-- Total Vehicles -->
 
               <div class="col-md-3">
-
                 <div class="card stat-card p-3 shadow-sm">
-
-                  <div class="d-flex justify-content-between align-items-center">
-
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
                     <div>
-
                       <p class="text-muted small mb-1 font-weight-bold">
                         Total Vehicles
                       </p>
 
                       <h3 class="font-weight-bold mb-0">
-                        {{totalVehicles}}
+                        {{ totalVehicles }}
                       </h3>
-
                     </div>
 
                     <div class="icon-box bg-primary text-white">
                       <i class="fas fa-bus"></i>
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
-
 
               <!-- Active -->
 
               <div class="col-md-3">
-
                 <div class="card stat-card p-3 shadow-sm">
-
-                  <div class="d-flex justify-content-between align-items-center">
-
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
                     <div>
-
                       <p class="text-muted small mb-1 font-weight-bold">
                         Moving Vehicles
                       </p>
 
                       <h3 class="font-weight-bold text-success mb-0">
-                        {{activeVehicles}}
+                        {{ activeVehicles }}
                       </h3>
-
                     </div>
 
                     <div class="icon-box bg-success text-white">
                       <i class="fas fa-route"></i>
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
-
 
               <!-- Stopped -->
 
               <div class="col-md-3">
-
                 <div class="card stat-card p-3 shadow-sm">
-
-                  <div class="d-flex justify-content-between align-items-center">
-
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
                     <div>
-
                       <p class="text-muted small mb-1 font-weight-bold">
                         Stopped Vehicles
                       </p>
 
                       <h3 class="font-weight-bold text-warning mb-0">
-                        {{stoppedVehicles}}
+                        {{ stoppedVehicles }}
                       </h3>
-
                     </div>
 
                     <div class="icon-box bg-warning text-white">
                       <i class="fas fa-parking"></i>
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
-
 
               <!-- Unreachable -->
 
               <div class="col-md-3">
-
                 <div class="card stat-card p-3 shadow-sm">
-
-                  <div class="d-flex justify-content-between align-items-center">
-
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
                     <div>
-
                       <p class="text-muted small mb-1 font-weight-bold">
                         Unreachable
                       </p>
 
                       <h3 class="font-weight-bold text-danger mb-0">
-                        {{unreachableVehicles}}
+                        {{ unreachableVehicles }}
                       </h3>
-
                     </div>
 
                     <div class="icon-box bg-danger text-white">
                       <i class="fas fa-wifi"></i>
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
-
             </div>
-
 
             <!-- Table -->
             <div class="card shadow-sm">
-
-              <div class="card-header bg-white d-flex justify-content-between align-items-center">
+              <div
+                class="card-header bg-white d-flex justify-content-between align-items-center"
+              >
                 <h6 class="mb-0 font-weight-bold">Shift Log Details</h6>
 
-                <div class="input-group input-group-sm" style="width:250px;">
-
+                <div class="input-group input-group-sm" style="width: 250px">
                   <div class="input-group-prepend">
                     <span class="input-group-text bg-light border-right-0">
-                      <i class='bx bx-search'></i>
+                      <i class="bx bx-search"></i>
                     </span>
                   </div>
 
-                  <input type="text" class="form-control border-left-0 bg-light" placeholder="Search vehicle..."
-                    [(ngModel)]="searchText" (keyup)="searchVehicle()" />
-
+                  <input
+                    type="text"
+                    class="form-control border-left-0 bg-light"
+                    placeholder="Search vehicle..."
+                    [(ngModel)]="searchText"
+                    (keyup)="searchVehicle()"
+                  />
                 </div>
 
                 <div class="text-muted small mb-2">
-                  Showing {{filteredVehicles.length}} of {{vehicles.length}} vehicles
+                  Showing {{ filteredVehicles.length }} of
+                  {{ vehicles.length }} vehicles
                 </div>
               </div>
 
-
               <div class="table-responsive">
                 <table class="table table-bordered table-hover table-sm">
-
                   <thead class="thead-dark">
                     <tr>
                       <th>#</th>
@@ -214,27 +178,28 @@
                   </thead>
 
                   <tbody>
-
                     <tr *ngFor="let v of filteredVehicles; let i = index">
-
                       <td>{{ i + 1 }}</td>
 
                       <!-- DB DATA -->
                       <td>
-                        <span 
-                          class="badge" 
-                          [ngClass]="v.division ? 'badge-success' : 'badge-secondary'">
-                          {{ v.division || 'N/A' }}
+                        <span
+                          class="badge"
+                          [ngClass]="
+                            v.division ? 'badge-success' : 'badge-secondary'
+                          "
+                        >
+                          {{ v.division || "N/A" }}
                         </span>
                       </td>
 
                       <td class="font-weight-bold">{{ v.VehName }}</td>
 
-                      <td>{{ v.vehicle_type || '-' }}</td>
+                      <td>{{ v.vehicle_type || "-" }}</td>
 
-                      <td>{{ v.operator_name || '-' }}</td>
+                      <td>{{ v.operator_name || "-" }}</td>
 
-                      <td>{{ v.driver_name || '-' }}</td>
+                      <td>{{ v.driver_name || "-" }}</td>
 
                       <!-- API DATA -->
 
@@ -243,14 +208,16 @@
                       <td>{{ v.Speed }} km/h</td>
 
                       <td>
-                        <span class="badge" [ngClass]="{
-            'badge-success': v.VehicleStatus === 'Moving',
-            'badge-danger': v.VehicleStatus === 'Stopped',
-            'badge-secondary': v.VehicleStatus === 'Unreachable'
-          }">
-
+                        <span
+                          class="badge"
+                          [ngClass]="{
+                            'badge-success': v.VehicleStatus === 'Moving',
+                            'badge-danger': v.VehicleStatus === 'Stopped',
+                            'badge-secondary':
+                              v.VehicleStatus === 'Unreachable',
+                          }"
+                        >
                           {{ v.VehicleStatus }}
-
                         </span>
                       </td>
 
@@ -265,154 +232,186 @@
                       <!-- SAVE / UPDATE -->
 
                       <td>
-
-                        <button *ngIf="!v.db_id" class="btn btn-success btn-sm" (click)="openSaveModal(v)">
+                        <button
+                          *ngIf="!v.db_id"
+                          class="btn btn-success btn-sm"
+                          (click)="openSaveModal(v)"
+                        >
                           Save
                         </button>
 
-                        <button *ngIf="v.db_id" class="btn btn-warning btn-sm" (click)="openUpdateModal(v)">
+                        <button
+                          *ngIf="v.db_id"
+                          class="btn btn-warning btn-sm"
+                          (click)="openUpdateModal(v)"
+                        >
                           Update
                         </button>
-
                       </td>
-
                     </tr>
-
                   </tbody>
-
                 </table>
 
                 <div class="modal fade" id="vehicleModal">
-
                   <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-
                       <div class="modal-header bg-primary text-white">
-
                         <h5 class="modal-title">
-                          {{ selectedVehicle.id ? 'Update Vehicle' : 'Add Vehicle' }}
+                          {{
+                            selectedVehicle.id
+                              ? "Update Vehicle"
+                              : "Add Vehicle"
+                          }}
                         </h5>
 
-                        <button class="close text-white" data-dismiss="modal">&times;</button>
-
+                        <button class="close text-white" data-dismiss="modal">
+                          &times;
+                        </button>
                       </div>
 
                       <div class="modal-body">
-
                         <div class="row">
-
                           <div class="col-md-6 mb-3">
                             <label>Vehicle No</label>
-                            <input class="form-control" [(ngModel)]="selectedVehicle.vehicle_no" readonly>
+                            <input
+                              class="form-control"
+                              [(ngModel)]="selectedVehicle.vehicle_no"
+                              readonly
+                            />
                           </div>
 
                           <div class="col-md-6 mb-3">
                             <label>Division</label>
-                            <select class="form-control" [(ngModel)]="selectedVehicle.division">
-                              <option>DIV I</option>
-                              <option>DIV II</option>
-                              <option>DIV III</option>
-                              <option>DIV IV</option>
-                              <option>DIV V</option>
-                              <option>DIV VI</option>
+                            <select
+                              class="form-control"
+                              [(ngModel)]="selectedVehicle.division"
+                            >
+                              <option>DIVISION I</option>
+                              <option>DIVISION II</option>
+                              <option>DIVISION III</option>
+                              <option>DIVISION IV</option>
+                              <option>DIVISION V</option>
+                              <option>DIVISION VI</option>
+                              <option>ENFORCEMENT BRANCH</option>
+                              <option>HORDING BRANCH</option>
+                              <option>MSWM (P)</option>
                             </select>
                           </div>
 
                           <div class="col-md-6 mb-3">
                             <label>Vehicle Type</label>
-                            <select class="form-control" [(ngModel)]="selectedVehicle.vehicle_type">
-                              <option>JCB Dumper</option>
-                              <option>Super Saucer</option>
-                              <option>Forklift</option>
-                              <option>Mini Hopper Tripper</option>
+                            <select
+                              class="form-control"
+                              [(ngModel)]="selectedVehicle.vehicle_type"
+                            >
+                              <option>Back Hoe Coader</option>
+                              <option>Dumper</option>
+                              <option>Mini Dumper</option>
+                              <option>Water Sprinkler</option>
                               <option>Water Tanker</option>
+                              <option>Road Sweeping Machine</option>
+                              <option>Pickup Truck</option>
+                              <option>Compactor</option>
+                              <option>Tractor</option>
+                              <option>Skid Steer Loader</option>
+                              <option>Super Saucer</option>
+                              <option>Mini Hopper Tripper</option>
                             </select>
                           </div>
 
                           <div class="col-md-6 mb-3">
                             <label>Capacity</label>
-                            <input class="form-control" [(ngModel)]="selectedVehicle.capacity">
-                          </div> 
+                            <input
+                              class="form-control"
+                              [(ngModel)]="selectedVehicle.capacity"
+                            />
+                          </div>
 
                           <div class="col-md-6 mb-3">
                             <label>Owner Name</label>
-                            <input class="form-control" [(ngModel)]="selectedVehicle.owner_name">
+                            <select
+                              class="form-control"
+                              [(ngModel)]="selectedVehicle.owner_name"
+                            >
+                              <option>Commissioner, GMC</option>
+                              <option>NGO</option>
+                            </select>
                           </div>
 
                           <div class="col-md-6 mb-3">
                             <label>Route</label>
-                            <select class="form-control" [(ngModel)]="selectedVehicle.route_id">
-
+                            <select
+                              class="form-control"
+                              [(ngModel)]="selectedVehicle.route_id"
+                            >
                               <option value="">Select Route</option>
 
                               <option *ngFor="let r of routes" [value]="r.id">
-                                {{r.routeName}}
+                                {{ r.routeName }}
                               </option>
-
                             </select>
                           </div>
 
-
-
                           <div class="col-md-6 mb-3">
-                            <label>Operator</label>
-                            <select class="form-control" [(ngModel)]="selectedVehicle.operator_id">
-
+                            <label>Supervisor</label>
+                            <select
+                              class="form-control"
+                              [(ngModel)]="selectedVehicle.operator_id"
+                            >
                               <option value="">Select Operator</option>
 
-                              <option *ngFor="let o of operators" [value]="o.id">
-                                {{o.operator_name}}
+                              <option
+                                *ngFor="let o of operators"
+                                [value]="o.id"
+                              >
+                                {{ o.operator_name }}
                               </option>
-
                             </select>
                           </div>
 
                           <div class="col-md-6 mb-3">
-                            <label>Driver</label>
+                            <label>Driver / Operator</label>
 
-                            <select class="form-control" [(ngModel)]="selectedVehicle.driver_id">
-
+                            <select
+                              class="form-control"
+                              [(ngModel)]="selectedVehicle.driver_id"
+                            >
                               <option value="">Select Driver</option>
 
                               <option *ngFor="let d of drivers" [value]="d.id">
-                                {{d.driver_name}}
+                                {{ d.driver_name }}
                               </option>
-
                             </select>
-
                           </div>
-
                         </div>
-
                       </div>
 
                       <div class="modal-footer">
-
                         <button class="btn btn-secondary" data-dismiss="modal">
                           Cancel
                         </button>
 
-                        <button *ngIf="!selectedVehicle.id" class="btn btn-success" (click)="saveVehicle()">
-
+                        <button
+                          *ngIf="!selectedVehicle.id"
+                          class="btn btn-success"
+                          (click)="saveVehicle()"
+                        >
                           Save Vehicle
-
                         </button>
 
-                        <button *ngIf="selectedVehicle.id" class="btn btn-warning" (click)="updateVehicleModal()">
-
+                        <button
+                          *ngIf="selectedVehicle.id"
+                          class="btn btn-warning"
+                          (click)="updateVehicleModal()"
+                        >
                           Update Vehicle
-
                         </button>
-
                       </div>
-
                     </div>
                   </div>
                 </div>
               </div>
-
             </div>
-
           </div>
 
           <!-- <table class="table table-bordered table-hover table-sm">
@@ -459,12 +458,8 @@
             No data available
           </div>
 
-          <div *ngIf="loading" class="text-center">
-            Loading...
-          </div>
-
+          <div *ngIf="loading" class="text-center">Loading...</div>
         </div>
-
       </div>
     </div>
   </section>

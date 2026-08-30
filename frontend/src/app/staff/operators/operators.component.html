@@ -7,7 +7,7 @@
             <div class="row mb-2">
 
                 <div class="col-sm-6">
-                    <h1 class="m-0">Operator Details</h1>
+                    <h1 class="m-0">Supervisor Details</h1>
                 </div>
 
                 <div class="col-sm-6">
@@ -19,7 +19,7 @@
                                 data-target="#operatorFormModal"
                                 (click)="openNewOperatorDialog()">
 
-                                <i class="fas fa-plus"></i> New Operator
+                                <i class="fas fa-plus"></i> New Supervisor
 
                             </button>
 
@@ -42,8 +42,8 @@
                 <thead>
                     <tr>
                         <th>Sl No.</th>
-                        <th>Operator ID</th>
-                        <th>Operator Name</th>
+                        <th>Supervisor ID</th>
+                        <th>Supervisor Name</th>
                         <th>Contact No</th>
                         <th>Action</th>
                     </tr>
@@ -104,7 +104,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h2 class="modal-title">Operator Details</h2>
+                    <h2 class="modal-title">Supervisor Details</h2>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -115,7 +115,7 @@
                         <div class="row">
 
                             <div class="col-md-6">
-                                <label>Operator ID *</label>
+                                <label>Supervisor ID *</label>
                                 <input type="text"
                                     class="form-control"
                                     [(ngModel)]="form1.operator_id"
@@ -124,7 +124,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label>Operator Name *</label>
+                                <label>Supervisor Name *</label>
                                 <input type="text"
                                     class="form-control"
                                     [(ngModel)]="form1.operator_name"
@@ -187,7 +187,7 @@
                         <div class="row pt-3">
 
                             <div class="col-md-12">
-                                <label>Operator Photo</label>
+                                <label>Supervisor Photo</label>
 
                                 <input type="file"
                                     class="form-control"
@@ -257,7 +257,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Operator Details</h5>
+                    <h5 class="modal-title">Supervisor Details</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -266,7 +266,7 @@
                     <table class="table table-borderless">
 
                         <tr>
-                            <th>Operator ID</th>
+                            <th>Supervisor ID</th>
                             <td>{{ selectedData.operator_id }}</td>
                         </tr>
 
@@ -337,7 +337,7 @@
 
                     <h5>
 
-                        Are you sure you want to delete operator
+                        Are you sure you want to delete Supervisor Record
 
                         <strong>
                             "{{toBeDeletedOperatorRecord.operator_name}}"
