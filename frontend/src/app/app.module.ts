@@ -21,6 +21,7 @@ import { OperatorsComponent } from './staff/operators/operators.component';
 import { DriversComponent } from './staff/drivers/drivers.component';
 import { DailyUpdateFormComponent } from './daily-update-form/daily-update-form.component';
 import { BusesComponent } from './buses/buses.component';
+import { RouteReplayComponent } from './route-replay/route-replay.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { BusesComponent } from './buses/buses.component';
     OperatorsComponent,
     DriversComponent,
     DailyUpdateFormComponent,
-    BusesComponent
+    BusesComponent,
+    RouteReplayComponent
   ],
   imports: [
     FormsModule,

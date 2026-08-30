@@ -9,6 +9,7 @@ import { OperatorsComponent } from './staff/operators/operators.component';
 import { DriversComponent } from './staff/drivers/drivers.component';
 import { DailyUpdateFormComponent } from './daily-update-form/daily-update-form.component';
 import { BusesComponent } from './buses/buses.component';
+import { RouteReplayComponent } from './route-replay/route-replay.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,12 @@ const routes: Routes = [
   {
     path: "buses",
     component: BusesComponent,
+    data: { showTopNav: true },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "route-replay",
+    component: RouteReplayComponent,
     data: { showTopNav: true },
     canActivate: [AuthGuard]
   },

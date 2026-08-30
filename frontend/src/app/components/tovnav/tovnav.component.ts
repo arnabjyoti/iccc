@@ -17,7 +17,7 @@ export class TovnavComponent implements OnInit {
   public tokenData: any;
   public menuItems: any;
   public myDate: any = new Date();
-  
+
   // Search functionality properties
   public searchQuery: string = '';
   public showSuggestions: boolean = false;
@@ -25,9 +25,9 @@ export class TovnavComponent implements OnInit {
   public allSearchableItems: any[] = [];
 
   constructor(
-    private loginService: LoginService, 
+    private loginService: LoginService,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
   ) {
     this.myDate = this.datePipe.transform(this.myDate, 'EEEE, dd-MM-yyyy');
   }
@@ -64,16 +64,34 @@ export class TovnavComponent implements OnInit {
         label: item.label,
         icon: item.icon,
         routerLink: item.routerLink,
-        keywords: item.label.toLowerCase()
+        keywords: item.label.toLowerCase(),
       }));
     }
 
     // You can add more searchable items here
     // For example: buses, routes, staff, etc.
     const additionalItems = [
-      { type: 'action', label: 'Logout', icon: 'fas fa-power-off', action: 'logout', keywords: 'logout sign out exit' },
-      { type: 'action', label: 'Profile', icon: 'fas fa-user-circle', routerLink: '/profile', keywords: 'profile account user settings' },
-      { type: 'quick-link', label: 'Dashboard', icon: 'fas fa-tachometer-alt', routerLink: '/home', keywords: 'dashboard home overview' }
+      {
+        type: 'action',
+        label: 'Logout',
+        icon: 'fas fa-power-off',
+        action: 'logout',
+        keywords: 'logout sign out exit',
+      },
+      {
+        type: 'action',
+        label: 'Profile',
+        icon: 'fas fa-user-circle',
+        routerLink: '/profile',
+        keywords: 'profile account user settings',
+      },
+      {
+        type: 'quick-link',
+        label: 'Dashboard',
+        icon: 'fas fa-tachometer-alt',
+        routerLink: '/home',
+        keywords: 'dashboard home overview',
+      },
     ];
 
     this.allSearchableItems = [...this.allSearchableItems, ...additionalItems];
@@ -96,11 +114,14 @@ export class TovnavComponent implements OnInit {
   // Filter suggestions based on search query
   filterSuggestions = (query: string) => {
     const searchTerm = query.toLowerCase().trim();
-    
-    this.searchSuggestions = this.allSearchableItems.filter(item => 
-      item.keywords.includes(searchTerm) || 
-      item.label.toLowerCase().includes(searchTerm)
-    ).slice(0, 8); // Limit to 8 suggestions
+
+    this.searchSuggestions = this.allSearchableItems
+      .filter(
+        (item) =>
+          item.keywords.includes(searchTerm) ||
+          item.label.toLowerCase().includes(searchTerm),
+      )
+      .slice(0, 8); // Limit to 8 suggestions
   };
 
   // Handle suggestion click
@@ -148,97 +169,90 @@ export class TovnavComponent implements OnInit {
   sideMenu = (user: any) => {
     console.log('role : ', user.role);
 
-    // for operator 
+    // for operator
     // if (user.role === 'operator') {
-      this.menuItems = [
-        {
-          label: 'Vehicle Master',
-          icon: 'fas fa-bus',
-          routerLink: '/vehicle-master',
-        },
-        {
-          label: 'Vehicle Tracking',
-          icon: 'fas fa-map-marked-alt',
-          routerLink: '/home',
-        },
-        {
-          label: 'Vehicle logsheet',
-          icon: 'fab fa-slack',
-          routerLink: '/buses',
-        },
-        {
-          label: 'Vehicle Routes',
-          icon: 'fas fa-route',
-          routerLink: '/vehicle-routes',
-        },
-        // {
-        //   label: 'Attendance',
-        //   icon: 'fas fa-user-clock',
-        //   routerLink: '/attendance',
-        // },
-        // {
-        //   label: 'Bus Staff',
-        //   icon: 'fas fa-user-clock',
-        //   routerLink: '/driver-conductor',
-        // },
-
-
-
-        {
-    label: 'Staff Management',
-    icon: 'fas fa-user',
-    children: [
+    this.menuItems = [
       {
-        label: 'Drivers',
-        routerLink: '/driver',
-        icon: 'far fa-circle'
+        label: 'Vehicle Master',
+        icon: 'fas fa-bus',
+        routerLink: '/vehicle-master',
       },
       {
-        label: 'Operators',
-        routerLink: '/operators',
-        icon: 'far fa-circle'
+        label: 'Vehicle Tracking',
+        icon: 'fas fa-map-marked-alt',
+        routerLink: '/home',
       },
-    ]
-  },
-        // {
-        //   label: 'Trips',
-        //   icon: 'fas fa-suitcase',
-        //   routerLink: '/trips',
-        // },
-        // {
-        //   label: 'Arrival',
-        //   icon: 'fas fa-plane-arrival',
-        //   routerLink: '/arrival',
-        // },
-        // {
-        //   label: 'Departure',
-        //   icon: 'fas fa-plane-departure',
-        //   routerLink: '/departure',
-        // },
-        // {
-        //   label: 'Bus Info',
-        //   icon: 'fas fa-bus',
-        //   routerLink: '/businfo',
-        // },
-        // {
-        //   label: 'Report',
-        //   icon: 'fas fa-book',
-        //   routerLink: '/report',
-        // },
-        // {
-        //   label: 'Earnings Book',
-        //   icon: 'fas fa-book',
-        //   routerLink: '/bus-daily-updates',
-        // },
-        // {
-        //   label: 'Breakdown Vehicles',
-        //   icon: 'fas fa-tools',
-        //   routerLink: '/breakdown-vehicles',
-        // }
-      ];
+      {
+        label: 'Vehicle logsheet',
+        icon: 'fab fa-slack',
+        routerLink: '/buses',
+      },
+      {
+        label: 'Vehicle Routes',
+        icon: 'fas fa-route',
+        routerLink: '/vehicle-routes',
+      },
+
+      {
+        label: 'Staff Management',
+        icon: 'fas fa-user',
+        children: [
+          {
+            label: 'Drivers / Operators',
+            routerLink: '/driver',
+            icon: 'far fa-circle',
+          },
+          {
+            label: 'Supervisors',
+            routerLink: '/operators',
+            icon: 'far fa-circle',
+          },
+        ],
+      },
+      {
+        label: 'Fuel Management',
+        icon: 'fas fa-gas-pump',
+        routerLink: '/fuel-management',
+      },
+      {
+        label: 'Route Replay',
+        icon: 'fas fa-undo',
+        routerLink: '/route-replay',
+      },
+      // {
+      //   label: 'Arrival',
+      //   icon: 'fas fa-plane-arrival',
+      //   routerLink: '/arrival',
+      // },
+      // {
+      //   label: 'Departure',
+      //   icon: 'fas fa-plane-departure',
+      //   routerLink: '/departure',
+      // },
+      // {
+      //   label: 'Bus Info',
+      //   icon: 'fas fa-bus',
+      //   routerLink: '/businfo',
+      // },
+      // {
+      //   label: 'Report',
+      //   icon: 'fas fa-book',
+      //   routerLink: '/report',
+      // },
+      // {
+      //   label: 'Earnings Book',
+      //   icon: 'fas fa-book',
+      //   routerLink: '/bus-daily-updates',
+      // },
+      // {
+      //   label: 'Breakdown Vehicles',
+      //   icon: 'fas fa-tools',
+      //   routerLink: '/breakdown-vehicles',
+      // }
+    ];
     // }
 
-    // for admin 
+    // for admin
     if (user.role === 'cashier') {
       this.menuItems = [
         {
@@ -288,15 +302,13 @@ export class TovnavComponent implements OnInit {
     this.initializeSearchData();
   };
 
+  toggleMenu(item: any) {
+    this.menuItems.forEach((i: any) => {
+      if (i !== item) {
+        i.open = false;
+      }
+    });
 
-toggleMenu(item: any) {
-  this.menuItems.forEach((i: any) => {
-    if (i !== item) {
-      i.open = false;
-    }
-  });
-
-  item.open = !item.open;
-}
-
+    item.open = !item.open;
+  }
 }

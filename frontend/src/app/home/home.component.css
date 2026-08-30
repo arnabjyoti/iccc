@@ -1,15 +1,123 @@
-#map {
-  height: 650px;
-  width: auto;
-}
-.rotated-marker {
-  transition: transform 0.3s linear;
+/* Respect AdminLTE content-wrapper structure */
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 57px); /* Adjusts exactly below the top navbar */
+  overflow: hidden;
+  position: relative;
+  background-color: #f4f6f9;
 }
 
-.loader-container {
-  height: 100vh;
+.map-sub-header {
+  background-color: #ffffff;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333333;
+  border-bottom: 1px solid #dee2e6;
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.content {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Modern Frosted Glass Card Loader */
+.loader-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-card {
+  background: #ffffff;
+  padding: 22px 30px;
+  border-radius: 14px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18);
+  display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.loader-card p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Custom Popup Styles */
+:host ::ng-deep .leaflet-popup-content-wrapper {
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  padding: 2px;
+}
+
+:host ::ng-deep .custom-popup {
+  font-size: 12px;
+  color: #334155;
+  line-height: 1.5;
+  min-width: 140px;
+}
+
+:host ::ng-deep .popup-title {
+  font-weight: 700;
+  font-size: 13px;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+:host ::ng-deep .popup-badge {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+:host ::ng-deep .status-moving { background: #dcfce7; color: #166534; }
+:host ::ng-deep .status-stopped { background: #fee2e2; color: #991b1b; }
+
+:host ::ng-deep .popup-stat {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
 }

@@ -1,16 +1,21 @@
-<!-- Loader -->
-<div class="loader-container" *ngIf="loading">
-  <div class="spinner-border text-primary" role="status"></div>
-  <p class="mt-2">Loading map and vehicles...</p>
-</div>
-
 <div class="content-wrapper">
-  <section class="content">
-    <div class="container-fluid">
-      <h3 class="text-center">Live Vehicle Tracking</h3>
+  <!-- Sub-Header Bar -->
+  <div class="map-sub-header">
+    <i class="fa fa-map-marker-alt text-dark"></i>
+    <span>Live vehicle location and route monitoring</span>
+  </div>
 
-      <div id="map" style="height: 700px;"></div>
-
+  <!-- Main Map Section -->
+  <section class="content p-0 position-relative">
+    <!-- Frosted Glass Card Loader -->
+    <div class="loader-backdrop" *ngIf="loading">
+      <div class="loader-card">
+        <div class="spinner"></div>
+        <p>Loading map and vehicles...</p>
+      </div>
     </div>
+
+    <!-- Map Canvas inside wrapper -->
+    <div id="map"></div>
   </section>
 </div>

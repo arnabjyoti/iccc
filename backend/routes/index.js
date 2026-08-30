@@ -44,6 +44,7 @@ module.exports = (app) => {
 	app.post('/api/updateDailyUpdates', busController.updateDailyUpdates);
 	app.post('/api/getOneTripDetails', busController.getOneTripDetails);
 
-
-	app.post("/api/travel-history", travelHistoryController.fetchTravelHistory);
+	// Travel History & Route Replay Routes
+	app.get('/api/getTravelHistory', travelHistoryController.getVehicleHistoryByDate);
+	app.post('/api/fetchTravelHistory', travelHistoryController.fetchTravelHistory);
 	};
