@@ -16,7 +16,10 @@
           (ngModelChange)="onRouteChange()"
         >
           <option value="" disabled>Select Vehicle</option>
-          <option *ngFor="let v of vehicleList" [value]="v.BoxId">
+          <option 
+            *ngFor="let v of vehicleList; trackBy: trackByVehicle" 
+            [value]="v.BoxId"
+          >
             {{ v.VehName }} ({{ v.VehicleStatus }})
           </option>
         </select>

@@ -1,8 +1,16 @@
-<div class="content-wrapper">
+<div class="content-wrapper" #mapWrapper>
   <!-- Sub-Header Bar -->
   <div class="map-sub-header">
-    <i class="fa fa-map-marker-alt text-dark"></i>
-    <span>Live vehicle location and route monitoring</span>
+    <div class="d-flex align-items-center gap-2">
+      <i class="fa fa-map-marker-alt text-dark"></i>
+      <span>Live vehicle location and route monitoring</span>
+    </div>
+
+    <!-- Fullscreen Toggle Button -->
+    <button class="btn-fullscreen" (click)="toggleFullscreen()" title="Toggle Fullscreen">
+      <i class="fa" [ngClass]="isFullscreen ? 'fa-compress' : 'fa-expand'"></i>
+      <span>{{ isFullscreen ? 'Exit Fullscreen' : 'Fullscreen' }}</span>
+    </button>
   </div>
 
   <!-- Main Map Section -->
@@ -15,7 +23,15 @@
       </div>
     </div>
 
-    <!-- Map Canvas inside wrapper -->
+    <!-- Map Canvas -->
     <div id="map"></div>
+
+    <!-- Bottom-Right Watermark Badge -->
+    <div class="map-watermark">
+      <span>Developed by </span>
+      <a href="https://skaplinktechnologies.com" target="_blank" rel="noopener noreferrer">
+        SkaplinkTechnologies.com
+      </a>
+    </div>
   </section>
 </div>

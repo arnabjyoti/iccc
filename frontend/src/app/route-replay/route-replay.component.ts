@@ -97,13 +97,21 @@ export class RouteReplayComponent implements OnInit, OnDestroy, AfterViewInit {
           return nameA.localeCompare(nameB, undefined, { numeric: true, sensitivity: 'base' });
         });
 
-        this.vehicleList = sortedData;
-
-        if (!this.selectedBoxId && this.vehicleList.length > 0) {
-          this.selectedBoxId = this.vehicleList[0].BoxId;
+        // Populate dropdown once on boot to prevent resetting selected item
+        if (this.vehicleList.length === 0) {
+          this.vehicleList = sortedData;
+          if (!this.selectedBoxId && this.vehicleList.length > 0) {
+            this.selectedBoxId = this.vehicleList[0].BoxId;
+          }
+        } else if (this.vehicleList.length !== sortedData.length) {
+          this.vehicleList = sortedData;
         }
       }
     });
+  }
+
+  trackByVehicle(index: number, item: any): string {
+    return item.BoxId;
   }
 
   toggleLegend(): void {

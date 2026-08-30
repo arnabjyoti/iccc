@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { HomeService } from './home.service';
 import { VehicleService } from '../vehicle.service';
 import * as L from 'leaflet';
 import 'leaflet-rotatedmarker';
@@ -17,38 +18,92 @@ interface TrackedMarker extends L.Marker {
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('mapWrapper') mapWrapperRef!: ElementRef;
+
   map!: L.Map;
   markers: Record<string, TrackedMarker> = {};
   loading: boolean = true;
+  isFullscreen: boolean = false;
   private animationLoopId: number | null = null;
 
-  constructor(private vehicleService: VehicleService) {}
+  constructor(
+    private homeService: HomeService,
+    private vehicleService: VehicleService
+  ) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    // 1. Initialize Map exactly with default zoom placement (top-left)
+    // 1. Initialize Map
     this.map = L.map('map', {
       zoomControl: true,
       attributionControl: false
     }).setView([26.1445, 91.7362], 12);
 
-    // 2. Exact standard OpenStreetMap tile layer from your screenshot (Free, no API key watermark)
+    // 2. OpenStreetMap Tile Layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       subdomains: ['a', 'b', 'c']
     }).addTo(this.map);
 
+    setTimeout(() => {
+      this.map.invalidateSize();
+    }, 200);
+
     // 3. Start smooth movement engine
     this.startContinuousEngine();
 
-    // 4. Data stream listener
+    // 4. Instant restoration from service cache if returning from another page
+    if (this.homeService.lastFleetData && this.homeService.lastFleetData.length > 0) {
+      this.loading = false;
+      this.updateVehicles(this.homeService.lastFleetData);
+    }
+
+    // 5. Data stream listener
     this.vehicleService.onVehicleUpdate((data: any[]) => {
       if (this.loading && data && data.length > 0) {
         this.loading = false;
       }
+      this.homeService.lastFleetData = data || [];
       this.updateVehicles(data || []);
     });
+  }
+
+  // ⭐ Toggle Native Fullscreen Mode
+  toggleFullscreen(): void {
+    const elem = this.mapWrapperRef.nativeElement;
+
+    if (!document.fullscreenElement) {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if ((elem as any).webkitRequestFullscreen) {
+        (elem as any).webkitRequestFullscreen();
+      } else if ((elem as any).msRequestFullscreen) {
+        (elem as any).msRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if ((document as any).webkitExitFullscreen) {
+        (document as any).webkitExitFullscreen();
+      } else if ((document as any).msExitFullscreen) {
+        (document as any).msExitFullscreen();
+      }
+    }
+  }
+
+  // ⭐ Recalculate Leaflet map dimensions on fullscreen enter/exit (including Esc key)
+  @HostListener('document:fullscreenchange', ['$event'])
+  @HostListener('document:webkitfullscreenchange', ['$event'])
+  @HostListener('document:mozfullscreenchange', ['$event'])
+  @HostListener('document:MSFullscreenChange', ['$event'])
+  onFullscreenChange(): void {
+    this.isFullscreen = !!document.fullscreenElement;
+    setTimeout(() => {
+      if (this.map) {
+        this.map.invalidateSize();
+      }
+    }, 250);
   }
 
   updateVehicles(data: any[]): void {
@@ -69,11 +124,13 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       });
 
       const popupContent = `
-        <div style="font-size: 13px; line-height: 1.4;">
-          <b>${vehicle.VehName || 'Vehicle ' + id}</b><br/>
-          Speed: <b>${speedKmh} km/h</b><br/>
-          Status: <span style="color: ${isMoving ? '#16a34a' : '#dc2626'}"><b>${vehicle.VehicleStatus}</b></span><br/>
-          Location: ${vehicle.Location || 'Guwahati'}
+        <div class="custom-popup">
+          <div class="popup-title">${vehicle.VehName || 'Vehicle ' + id}</div>
+          <div class="popup-badge ${isMoving ? 'status-moving' : 'status-stopped'}">
+            ${vehicle.VehicleStatus}
+          </div>
+          <div class="popup-stat"><span>Speed:</span> <b>${speedKmh} km/h</b></div>
+          <div class="popup-stat"><span>Location:</span> <b>${vehicle.Location || 'Guwahati'}</b></div>
         </div>
       `;
 
@@ -86,30 +143,46 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
         const newPos = L.latLng(lat, lng);
         const distanceMeters = curPos.distanceTo(newPos);
 
-        // Only rotate if real movement occurs (> 10m) to stop in-place spin
-        if (isMoving && distanceMeters >= 10) {
-          marker._targetAngle = this.getBearing(curPos, newPos);
+        // Calculate bearing only if real movement occurs (> 8m)
+        if (isMoving && distanceMeters >= 8) {
+          const bearing = this.getBearing(curPos, newPos);
+          marker._targetAngle = bearing;
+          this.homeService.setVehicleCache(id, lat, lng, bearing);
         }
 
         marker._targetPos = newPos;
         marker._speedKmh = speedKmh;
         marker._isMoving = isMoving;
       } else {
+        // Read cached angle so the marker instantly faces the correct direction
+        const cached = this.homeService.getVehicleCache(id);
+        let initialAngle = 0;
+
+        if (cached) {
+          initialAngle = cached.angle;
+          const prevPos = L.latLng(cached.lat, cached.lng);
+          const currentPos = L.latLng(lat, lng);
+          if (prevPos.distanceTo(currentPos) >= 8) {
+            initialAngle = this.getBearing(prevPos, currentPos);
+          }
+        }
+
         const marker = L.marker([lat, lng], {
           icon,
-          rotationAngle: 0,
+          rotationAngle: initialAngle,
           rotationOrigin: 'center'
         } as any) as TrackedMarker;
 
         marker.bindPopup(popupContent);
-        marker._currentAngle = 0;
-        marker._targetAngle = 0;
+        marker._currentAngle = initialAngle;
+        marker._targetAngle = initialAngle;
         marker._targetPos = L.latLng(lat, lng);
         marker._speedKmh = speedKmh;
         marker._isMoving = isMoving;
 
         marker.addTo(this.map);
         this.markers[id] = marker;
+        this.homeService.setVehicleCache(id, lat, lng, initialAngle);
       }
     });
   }
